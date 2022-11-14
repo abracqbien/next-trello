@@ -8,7 +8,6 @@ import App from "Containers/App"
 
 // Store
 import configStore from "Redux/store"
-
 const { store, persistor } = configStore()
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
