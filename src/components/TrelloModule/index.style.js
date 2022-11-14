@@ -24,6 +24,24 @@ export const ColumnContainer = styled.div`
     font-weight: 600;
     padding: 0 8px;
     line-height: 26px;
+    width: 220px;
+  }
+
+  .column_delete {
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    height: 30px;
+    right: 10px;
+    color: #000;
+    width: 30px;
+    top: 5px;
+
+    &:hover {
+      background-color: #ced1d9;
+    }
   }
 
   .column_card_item {

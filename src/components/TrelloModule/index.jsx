@@ -9,6 +9,7 @@ import Button from "Components/UiKit/Button"
 import { ColumnContainer, MainContainer } from "Components/TrelloModule/index.style"
 
 const TrelloModule = ({
+  onRemoveSuccessCode,
   onPostList,
   currentUser,
   successCode,
@@ -17,7 +18,6 @@ const TrelloModule = ({
   columns,
   cards,
 }) => {
-  console.log("currentUser", currentUser)
   return (
     <MainContainer id="trello_container" gridLength={columns?.length}>
       {Children.toArray(
@@ -26,7 +26,12 @@ const TrelloModule = ({
 
           return (
             <ColumnContainer isFirstItem={index === 0}>
-              <div className="column_title">{column?.title}</div>
+              <div style={{ display: "flex" }}>
+                <div className="column_title">{column?.title}</div>
+                <div className="column_delete">
+                  <i className="fas fa-ellipsis-h" />
+                </div>
+              </div>
               {Children.toArray(
                 columnCards?.map(card => {
                   const userFollow = card?.userFollowIds?.filter(
@@ -38,7 +43,7 @@ const TrelloModule = ({
                       <div className="card_title">{card?.title}</div>
                       <div className="card_icons">
                         {userFollow?.length !== 0 && <i className="far fa-eye" />}
-                        {card?.description !== "" && <i class="fas fa-align-left" />}
+                        {card?.description !== "" && <i className="fas fa-align-left" />}
                       </div>
                     </div>
                   )
@@ -54,12 +59,18 @@ const TrelloModule = ({
           )
         })
       )}
-      <AddList onPostList={onPostList} successCode={successCode} warningCode={warningCode} />
+      <AddList
+        onRemoveSuccessCode={onRemoveSuccessCode}
+        onPostList={onPostList}
+        successCode={successCode}
+        warningCode={warningCode}
+      />
     </MainContainer>
   )
 }
 
 TrelloModule.propTypes = {
+  onRemoveSuccessCode: PropTypes.func,
   onPostList: PropTypes.func,
   columnLoading: PropTypes.bool,
   currentUser: PropTypes.object,
@@ -74,6 +85,7 @@ TrelloModule.propTypes = {
 }
 
 TrelloModule.defaultProps = {
+  onRemoveSuccessCode: () => {},
   onPostList: () => {},
   columnLoading: false,
   cardLoading: false,

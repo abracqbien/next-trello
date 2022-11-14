@@ -62,6 +62,10 @@ const trelloReducer = (state = INITIAL_STATE, { type, payload }) => {
         ...state,
         successCode: payload,
       }
+    case TrelloActionTypes.RESET_DATA:
+      console.log("type", type)
+
+      return INITIAL_STATE
     case TrelloActionTypes.SET_WARNING_CODE:
       return {
         ...state,
@@ -72,7 +76,21 @@ const trelloReducer = (state = INITIAL_STATE, { type, payload }) => {
         ...state,
         failCode: payload,
       }
-
+    case TrelloActionTypes.REMOVE_SUCCESS_CODE:
+      return {
+        ...state,
+        successCode: "",
+      }
+    case TrelloActionTypes.REMOVE_WARNING_CODE:
+      return {
+        ...state,
+        warningCode: "",
+      }
+    case TrelloActionTypes.REMOVE_FAIL_CODE:
+      return {
+        ...state,
+        failCode: "",
+      }
     default:
       return state
   }

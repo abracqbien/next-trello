@@ -5,7 +5,7 @@ import { connect } from "react-redux"
 import TrelloModule from "Components/TrelloModule"
 
 // Actions
-import { postList } from "Containers/TrelloModule/actions"
+import { removeSuccessCode, postList, resetData } from "Containers/TrelloModule/actions"
 
 // Selectors
 import { selectCurrentUser } from "Containers/Login/selectors"
@@ -20,6 +20,7 @@ import {
 } from "Containers/TrelloModule/selectors"
 
 const mapDispatchToProps = dispatch => ({
+  onRemoveSuccessCode: () => dispatch(removeSuccessCode()),
   onPostList: core => dispatch(postList(core)),
 })
 

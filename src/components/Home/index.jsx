@@ -13,13 +13,14 @@ import {
   MainContainer,
 } from "Components/Home/index.style"
 
-const Home = ({ currentUser, isTablet, isMobile }) => {
+const Home = ({ onResetData, currentUser, isTablet, isMobile }) => {
   return (
     <MainContainer id="home_container">
       <HeaderContainer>
         <div className="label">Tableau principal</div>
         <ButtonContainer>
           <Button
+            onClick={onResetData}
             label="Initialiser le jeu de données"
             hoverBckgrColor="#61BD4F"
             bckgrColor="#5aac44"
@@ -34,12 +35,14 @@ const Home = ({ currentUser, isTablet, isMobile }) => {
 }
 
 Home.propTypes = {
+  onResetData: PropTypes.func,
   cardLoading: PropTypes.bool,
   isTablet: PropTypes.bool,
   isMobile: PropTypes.bool,
 }
 
 Home.defaultProps = {
+  onResetData: () => {},
   currentUser: {},
   isTablet: false,
   isMobile: false,

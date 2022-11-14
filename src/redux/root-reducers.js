@@ -11,7 +11,7 @@ import homeReducer from "Containers/Home/reducer"
 const persistConfig = {
   key: "next-trello",
   storage,
-  whitelist: [],
+  whitelist: ["trello"],
   blacklist: [],
 }
 

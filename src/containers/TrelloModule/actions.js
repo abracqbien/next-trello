@@ -9,15 +9,29 @@ export const postSuccessList = payload => ({
   payload,
 })
 
-export const setSuccessCode = () => ({
+export const resetData = () => ({
+  type: TrelloActionTypes.RESET_DATA,
+})
+
+// CODE
+export const setSuccessCode = payload => ({
   type: TrelloActionTypes.SET_SUCCESS_CODE,
   payload,
 })
-export const setWarningCode = () => ({
+export const setWarningCode = payload => ({
   type: TrelloActionTypes.SET_WARNING_CODE,
   payload,
 })
-export const setFailCode = () => ({
+export const setFailCode = payload => ({
   type: TrelloActionTypes.SET_FAIL_CODE,
   payload,
+})
+export const removeSuccessCode = () => ({
+  type: TrelloActionTypes.REMOVE_SUCCESS_CODE,
+})
+export const removeWarningCode = () => ({
+  type: TrelloActionTypes.REMOVE_WARNING_CODE,
+})
+export const removeFailCode = () => ({
+  type: TrelloActionTypes.REMOVE_FAIL_CODE,
 })

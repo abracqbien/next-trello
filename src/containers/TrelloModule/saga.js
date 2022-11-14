@@ -20,15 +20,15 @@ function* postList({ payload }) {
 
   console.log("payload", payload)
 
-  if (payload?.label !== "") {
+  if (payload?.title === "") {
     yield put(setWarningCode("LIST_TITLE_EMPTY"))
   } else {
     const responseBack = { type: "success" }
 
-    if (responseBack?.code === "success") {
+    if (responseBack?.type === "success") {
       yield put(setSuccessCode("SUCCESS_POST_LIST"))
       yield put(postSuccessList(payload))
-    } else if (responseBack?.code === "fail") {
+    } else if (responseBack?.type === "fail") {
       yield put(setFailCode("FAIL_POST_LIST"))
     }
   }

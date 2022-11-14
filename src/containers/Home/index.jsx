@@ -6,10 +6,13 @@ import { compose } from "redux"
 import Home from "Components/Home"
 
 // Actions
+import { resetData } from "Containers/TrelloModule/actions"
 
 // Selectors
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+  onResetData: () => dispatch(resetData()),
+})
 
 const mapStateToProps = createStructuredSelector({})
 

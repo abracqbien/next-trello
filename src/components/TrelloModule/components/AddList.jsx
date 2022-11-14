@@ -8,27 +8,34 @@ import Button from "Components/UiKit/Button"
 // Styles
 import { ColumnContainer, ColumnAdd } from "Components/TrelloModule/index.style"
 
-const AddList = ({ onPostList, successCode, warningCode }) => {
+const AddList = ({ onRemoveSuccessCode, onPostList, successCode, warningCode }) => {
   const [workingList, setWorkingList] = useState("")
   const [atWork, setAtWork] = useState(false)
 
   useEffect(() => {
     if (successCode === "SUCCESS_POST_LIST") {
-      setWorkingList("")
-      setAtWork(false)
+      onRemoveSuccessCode()
+      onClean()
     }
   }, [successCode])
 
   const onSubmitList = () => {
     onPostList({
       id: uuidv4(),
-      label: workingList,
+      title: workingList,
+      cardsIds: [],
     })
+  }
+
+  const onClean = () => {
+    setWorkingList("")
+    setAtWork(false)
   }
 
   return atWork ? (
     <ColumnContainer>
       {warningCode !== "" && <div>Un titre doit être défini pour pouvoir créer la liste</div>}
+      <input onChange={({ target }) => setWorkingList(target.value)} value={workingList} />
       <div style={{ display: "flex" }}>
         <div style={{ width: "125px" }}>
           <Button
@@ -40,7 +47,7 @@ const AddList = ({ onPostList, successCode, warningCode }) => {
         </div>
         <div style={{ width: "40px", margin: "0 5px" }}>
           <Button
-            onClick={() => setAtWork(false)}
+            onClick={onClean}
             label=""
             hoverBckgrColor="#F4F5F7"
             bckgrColor="#EBECF0"
