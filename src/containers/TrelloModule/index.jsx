@@ -5,7 +5,11 @@ import { connect } from "react-redux"
 import TrelloModule from "Components/TrelloModule"
 
 // Actions
-import { removeSuccessCode, postList, resetData } from "Containers/TrelloModule/actions"
+import {
+  removeSuccessCode,
+  deleteList,
+  postList,
+} from "Containers/TrelloModule/actions"
 
 // Selectors
 import { selectCurrentUser } from "Containers/Login/selectors"
@@ -21,6 +25,7 @@ import {
 
 const mapDispatchToProps = dispatch => ({
   onRemoveSuccessCode: () => dispatch(removeSuccessCode()),
+  onDeleteList: core => dispatch(deleteList(core)),
   onPostList: core => dispatch(postList(core)),
 })
 
@@ -35,6 +40,9 @@ const mapStateToProps = createStructuredSelector({
   cards: selectCards,
 })
 
-const TrelloModuleContainer = connect(mapStateToProps, mapDispatchToProps)(TrelloModule)
+const TrelloModuleContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TrelloModule)
 
 export default TrelloModuleContainer

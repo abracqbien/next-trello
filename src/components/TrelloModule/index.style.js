@@ -29,6 +29,7 @@ export const ColumnContainer = styled.div`
 
   .column_delete {
     justify-content: center;
+    transition: 0.25s ease;
     align-items: center;
     border-radius: 3px;
     cursor: pointer;
@@ -47,6 +48,7 @@ export const ColumnContainer = styled.div`
   .column_card_item {
     border-bottom: 1px solid #b2b8c4;
     background-color: #ffffff;
+    transition: 0.25s ease;
     border-radius: 3px;
     cursor: pointer;
     margin: 10px 0;

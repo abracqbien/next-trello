@@ -2,11 +2,15 @@ import { takeEvery, take, select, call, put } from "redux-saga/effects"
 
 // Actions
 import {
+  deleteSuccessList,
   postSuccessList,
   setSuccessCode,
   setWarningCode,
   setFailCode,
 } from "Containers/TrelloModule/actions"
+
+// Selectors
+import { selectColumns } from "Containers/TrelloModule/selectors"
 
 // Types
 import TrelloActionTypes from "Containers/TrelloModule/types"
@@ -15,10 +19,8 @@ function* postList({ payload }) {
   // try {
   //   const response = yield call(request)
   // } catch (error) {
-  //   console.error('PostList ERROR | ', error)
+  //   console.error('postList ERROR | ', error)
   // }
-
-  console.log("payload", payload)
 
   if (payload?.title === "") {
     yield put(setWarningCode("LIST_TITLE_EMPTY"))
@@ -34,10 +36,27 @@ function* postList({ payload }) {
   }
 }
 
+function* deleteList({ payload }) {
+  // try {
+  //   const response = yield call(request)
+  // } catch (error) {
+  //   console.error('deleteList ERROR | ', error)
+  // }
+
+  console.log("payload", payload)
+  const columns = yield select(selectColumns)
+
+  console.log("columns", columns)
+  yield put(
+    deleteSuccessList(columns?.filter(item => item?.id !== payload?.id))
+  )
+}
+
 // ***************************** //
 //              Sagas            //
 // ***************************** //
 function* trelloSaga() {
+  yield takeEvery(TrelloActionTypes.DELETE_LIST, deleteList)
   yield takeEvery(TrelloActionTypes.POST_LIST, postList)
 }
 

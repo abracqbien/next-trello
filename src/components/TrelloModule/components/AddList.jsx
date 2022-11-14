@@ -4,11 +4,17 @@ import { v4 as uuidv4 } from "uuid"
 
 // Components
 import Button from "Components/UiKit/Button"
+import Input from "Components/UiKit/Input"
 
 // Styles
 import { ColumnContainer, ColumnAdd } from "Components/TrelloModule/index.style"
 
-const AddList = ({ onRemoveSuccessCode, onPostList, successCode, warningCode }) => {
+const AddList = ({
+  onRemoveSuccessCode,
+  onPostList,
+  successCode,
+  warningCode,
+}) => {
   const [workingList, setWorkingList] = useState("")
   const [atWork, setAtWork] = useState(false)
 
@@ -34,8 +40,15 @@ const AddList = ({ onRemoveSuccessCode, onPostList, successCode, warningCode }) 
 
   return atWork ? (
     <ColumnContainer>
-      {warningCode !== "" && <div>Un titre doit être défini pour pouvoir créer la liste</div>}
-      <input onChange={({ target }) => setWorkingList(target.value)} value={workingList} />
+      {warningCode !== "" && (
+        <div>Un titre doit être défini pour pouvoir créer la liste</div>
+      )}
+      <Input
+        onChange={({ target }) => setWorkingList(target.value)}
+        placeholder="Saisissez le titre de la liste..."
+        value={workingList}
+        height="40px"
+      />
       <div style={{ display: "flex" }}>
         <div style={{ width: "125px" }}>
           <Button
@@ -48,11 +61,11 @@ const AddList = ({ onRemoveSuccessCode, onPostList, successCode, warningCode }) 
         <div style={{ width: "40px", margin: "0 5px" }}>
           <Button
             onClick={onClean}
-            label=""
             hoverBckgrColor="#F4F5F7"
             bckgrColor="#EBECF0"
-            color="#919191"
             icon="fas fa-times"
+            color="#919191"
+            label=""
           />
         </div>
       </div>

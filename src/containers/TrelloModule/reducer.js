@@ -57,14 +57,17 @@ const trelloReducer = (state = INITIAL_STATE, { type, payload }) => {
         ...state,
         columns: [...state.columns, payload],
       }
+    case TrelloActionTypes.DELETE_SUCCESS_LIST:
+      return {
+        ...state,
+        columns: payload,
+      }
     case TrelloActionTypes.SET_SUCCESS_CODE:
       return {
         ...state,
         successCode: payload,
       }
     case TrelloActionTypes.RESET_DATA:
-      console.log("type", type)
-
       return INITIAL_STATE
     case TrelloActionTypes.SET_WARNING_CODE:
       return {

@@ -6,10 +6,14 @@ import AddList from "Components/TrelloModule/components/AddList"
 import Button from "Components/UiKit/Button"
 
 // Styles
-import { ColumnContainer, MainContainer } from "Components/TrelloModule/index.style"
+import {
+  ColumnContainer,
+  MainContainer,
+} from "Components/TrelloModule/index.style"
 
 const TrelloModule = ({
   onRemoveSuccessCode,
+  onDeleteList,
   onPostList,
   currentUser,
   successCode,
@@ -22,13 +26,18 @@ const TrelloModule = ({
     <MainContainer id="trello_container" gridLength={columns?.length}>
       {Children.toArray(
         columns?.map((column, index) => {
-          const columnCards = cards?.filter(card => card?.columnId === column?.id)
+          const columnCards = cards?.filter(
+            card => card?.columnId === column?.id
+          )
 
           return (
             <ColumnContainer isFirstItem={index === 0}>
               <div style={{ display: "flex" }}>
                 <div className="column_title">{column?.title}</div>
-                <div className="column_delete">
+                <div
+                  className="column_delete"
+                  onClick={() => onDeleteList(column)}
+                >
                   <i className="fas fa-ellipsis-h" />
                 </div>
               </div>
@@ -42,8 +51,12 @@ const TrelloModule = ({
                     <div className="column_card_item">
                       <div className="card_title">{card?.title}</div>
                       <div className="card_icons">
-                        {userFollow?.length !== 0 && <i className="far fa-eye" />}
-                        {card?.description !== "" && <i className="fas fa-align-left" />}
+                        {userFollow?.length !== 0 && (
+                          <i className="far fa-eye" />
+                        )}
+                        {card?.description !== "" && (
+                          <i className="fas fa-align-left" />
+                        )}
                       </div>
                     </div>
                   )
@@ -71,6 +84,7 @@ const TrelloModule = ({
 
 TrelloModule.propTypes = {
   onRemoveSuccessCode: PropTypes.func,
+  onDeleteList: PropTypes.func,
   onPostList: PropTypes.func,
   columnLoading: PropTypes.bool,
   currentUser: PropTypes.object,
@@ -86,6 +100,7 @@ TrelloModule.propTypes = {
 
 TrelloModule.defaultProps = {
   onRemoveSuccessCode: () => {},
+  onDeleteList: () => {},
   onPostList: () => {},
   columnLoading: false,
   cardLoading: false,

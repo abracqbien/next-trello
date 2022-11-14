@@ -3,16 +3,17 @@ import styled from "styled-components"
 export const MainContainer = styled.div`
   height: ${({ height }) => height || "30px"};
   position: relative;
+  margin: 0 0 5px 0;
   width: 100%;
 `
 
-export const ButtonKit = styled.button`
+export const InputKit = styled.input`
   transition: 0.25s ease;
   position: relative;
   border-radius: 3px;
+  padding: 0 0 0 5px;
   border-width: 0px;
   cursor: pointer;
-  outline: none;
 
   /** Fonts */
   line-height: 32px;
@@ -20,18 +21,9 @@ export const ButtonKit = styled.button`
 
   /** Colors */
   background-color: ${({ bckgrColor }) => bckgrColor || "#EBECF0"};
-  color: ${({ color }) => color || "#FFF"};
+  color: ${({ color }) => color || "#000"};
 
   /** Size */
-  padding: 0 12px;
+  width: calc(100% - 5px);
   height: 100%;
-  width: 100%;
-
-  &:hover {
-    background-color: ${({ hoverBckgrColor }) => hoverBckgrColor || "#EBECF0"};
-  }
-
-  i {
-    margin: ${({ label }) => (label !== "" ? "0 10px 0 0" : "")};
-  }
 `
