@@ -13,9 +13,6 @@ import { LayoutContainer, BodyContainer } from "Components/Layout/index.style"
 const Layout = ({ currentUser, currentRole, children }) => {
   const { isTablet, isMobile } = useMedia()
 
-  console.log("currentUser", currentUser)
-  console.log("currentRole", currentRole)
-
   return (
     <LayoutContainer id="layout_container">
       <Header />

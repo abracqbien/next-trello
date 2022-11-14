@@ -1,7 +1,7 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const path = require("path")
 
-const devMode = true;
+const devMode = true
 
 module.exports = {
   entry: "./src/index.js",
@@ -56,11 +56,11 @@ module.exports = {
     alias: {
       Components: path.resolve(__dirname, "./src/components"),
       Containers: path.resolve(__dirname, "./src/containers"),
-      Assets: path.resolve(__dirname, "./src/assets/images"),
+      Images: path.resolve(__dirname, "./src/assets/images"),
       Utils: path.resolve(__dirname, "./src/utils"),
       Redux: path.resolve(__dirname, "./src/redux"),
       Hooks: path.resolve(__dirname, "./src/hooks"),
     },
     extensions: ["*", ".js", ".jsx"],
   },
-};
+}

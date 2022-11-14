@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import React from "react"
 
 // Assets
-import HeaderIcon from "Assets/header_trello_icon"
+import HeaderIcon from "Images/header_trello_icon"
 
 // Style
 import { HeaderContainer } from "Components/Layout/index.style"

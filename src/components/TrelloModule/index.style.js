@@ -24,12 +24,12 @@ export const ColumnContainer = styled.div`
     `}
 
   .column_title {
-    color: #000;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 0 8px;
     line-height: 26px;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 0 8px;
     width: 220px;
+    color: #000;
   }
 
   .column_delete {
@@ -65,6 +65,7 @@ export const ColumnContainer = styled.div`
     }
 
     .card_title {
+      word-break: break-all;
     }
 
     .card_icons {

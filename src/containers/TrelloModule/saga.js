@@ -46,6 +46,7 @@ function* deleteList({ payload }) {
 
   const columns = yield select(selectColumns)
 
+  yield put(setSuccessCode("SUCCESS_DELETE_LIST"))
   yield put(
     deleteSuccessList(columns?.filter(item => item?.id !== payload?.id))
   )

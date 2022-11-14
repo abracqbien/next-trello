@@ -1,7 +1,8 @@
-import React, { Children, useEffect } from "react"
+import React, { Children, useEffect, useState } from "react"
 import PropTypes from "prop-types"
 
 // Components
+import ConfirmationModal from "Components/UiKit/Modals/ConfirmationModal"
 import CardItem from "Components/TrelloModule/components/CardItem"
 import AddList from "Components/TrelloModule/components/AddList"
 import AddCard from "Components/TrelloModule/components/AddCard"
@@ -26,6 +27,9 @@ const TrelloModule = ({
   columns,
   cards,
 }) => {
+  const [confirmDelete, setConfirmeDelete] = useState(false)
+  const [workColumn, setWorkColumn] = useState({})
+
   useEffect(() => {
     if (warningCode !== "")
       setTimeout(() => {
@@ -33,8 +37,32 @@ const TrelloModule = ({
       }, 3000)
   }, [warningCode])
 
+  useEffect(() => {
+    if (successCode === "SUCCESS_DELETE_LIST") setConfirmeDelete(false)
+  }, [successCode])
+
+  const onConfirmDelete = column => {
+    setWorkColumn(column)
+    setConfirmeDelete(true)
+  }
+
+  const onCloseConfirmDelete = () => {
+    setConfirmeDelete(false)
+  }
+
+  const onSubmitDeleteLise = () => {
+    onDeleteList(workColumn)
+  }
+
   return (
     <MainContainer id="trello_container" gridLength={columns?.length}>
+      {confirmDelete && (
+        <ConfirmationModal
+          onClose={onCloseConfirmDelete}
+          onSubmit={onSubmitDeleteLise}
+          textContent={`Vous allez supprimer la liste nommée ${workColumn?.title}`}
+        />
+      )}
       {Children.toArray(
         columns?.map((column, index) => {
           const columnCards = cards?.filter(
@@ -47,7 +75,7 @@ const TrelloModule = ({
                 <div className="column_title">{column?.title}</div>
                 <div
                   className="column_delete"
-                  onClick={() => onDeleteList(column)}
+                  onClick={() => onConfirmDelete(column)}
                 >
                   <i className="fas fa-ellipsis-h" />
                 </div>
