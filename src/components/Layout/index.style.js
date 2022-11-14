@@ -10,6 +10,11 @@ export const LayoutContainer = styled.div`
     font-size: 11px;
     margin: 5px 0;
   }
+  .warning_message_without_margin {
+    color: red;
+    font-size: 11px;
+    margin: 0 0 5px 0;
+  }
 `
 
 export const BodyContainer = styled.div`

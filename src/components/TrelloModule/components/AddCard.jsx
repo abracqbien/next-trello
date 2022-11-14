@@ -51,7 +51,7 @@ const AddCard = ({
         bckgrColor="#FFF"
       />
       {warningCode !== "" && (
-        <div className="warning_message">
+        <div className="warning_message_without_margin">
           Un titre doit être défini pour pouvoir créer cette carte
         </div>
       )}

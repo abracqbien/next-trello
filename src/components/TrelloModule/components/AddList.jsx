@@ -75,7 +75,7 @@ const AddList = ({
       </div>
     </ColumnContainer>
   ) : (
-    <ColumnAdd>
+    <ColumnAdd withMargin>
       <Button
         onClick={() => setAtWork(true)}
         label="Ajouter une autre liste"
