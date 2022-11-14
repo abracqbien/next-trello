@@ -23,18 +23,16 @@ const ConfirmationModal = ({ onSubmit, onClose, textContent }) => {
       closeModal={onClose}
     >
       <ModalContentContainer>
-        <div style={{ height: "100px" }}>
+        <div className="icon_container">
           <WarningIcon />
         </div>
-        <div style={{ margin: "40px 0px", textAlign: "center" }}>
-          {textContent}
-        </div>
+        <div className="text_content">{textContent}</div>
         <ButtonsContainer>
           <div style={{ width: "100px", margin: "0 10px 0 0" }}>
-            <Button onClick={onSubmit} bckgrColor="green" label="Oui" />
+            <Button onClick={onSubmit} bckgrColor="green" label="OK" />
           </div>
           <div style={{ width: "100px" }}>
-            <Button onClick={onClose} bckgrColor="red" label="Non" />
+            <Button onClick={onClose} bckgrColor="red" label="Annuler" />
           </div>
         </ButtonsContainer>
       </ModalContentContainer>

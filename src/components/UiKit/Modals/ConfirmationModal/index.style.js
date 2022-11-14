@@ -6,6 +6,15 @@ export const ModalContentContainer = styled.div`
   align-items: center;
   display: flex;
   padding: 40px;
+
+  .icon_container {
+    height: 100%;
+  }
+
+  .text_content {
+    text-align: center;
+    margin: 40px 0;
+  }
 `
 
 export const ButtonsContainer = styled.div`

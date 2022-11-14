@@ -116,6 +116,7 @@ TrelloModule.propTypes = {
   onDeleteList: PropTypes.func,
   onPostList: PropTypes.func,
   onPostCard: PropTypes.func,
+  // Others props
   columnLoading: PropTypes.bool,
   currentUser: PropTypes.object,
   cardLoading: PropTypes.bool,
@@ -134,6 +135,7 @@ TrelloModule.defaultProps = {
   onDeleteList: () => {},
   onPostList: () => {},
   onPostCard: () => {},
+  // Others props
   columnLoading: false,
   cardLoading: false,
   currentUser: {},
