@@ -1,27 +1,51 @@
 import PropTypes from "prop-types"
 import React from "react"
 
-// Styles
-import { MainContainer } from "Components/Home/index.style"
+// Components
+import TrelloModule from "Containers/TrelloModule"
+import Button from "Components/UiKit/Button"
 
-const Home = ({ isTablet, isMobile, data }) => {
+// Styles
+import {
+  HeaderContainer,
+  ButtonContainer,
+  BodyContainer,
+  MainContainer,
+} from "Components/Home/index.style"
+
+const Home = ({ onResetData, currentUser, isTablet, isMobile }) => {
   return (
     <MainContainer id="home_container">
-      <div>Home</div>
+      <HeaderContainer>
+        <div className="label">Tableau principal</div>
+        <ButtonContainer>
+          <Button
+            onClick={onResetData}
+            label="Initialiser le jeu de données"
+            hoverBckgrColor="#61BD4F"
+            bckgrColor="#5aac44"
+          />
+        </ButtonContainer>
+      </HeaderContainer>
+      <BodyContainer>
+        <TrelloModule />
+      </BodyContainer>
     </MainContainer>
   )
 }
 
 Home.propTypes = {
+  onResetData: PropTypes.func,
+  cardLoading: PropTypes.bool,
   isTablet: PropTypes.bool,
   isMobile: PropTypes.bool,
-  data: PropTypes.array,
 }
 
 Home.defaultProps = {
+  onResetData: () => {},
+  currentUser: {},
   isTablet: false,
   isMobile: false,
-  data: [],
 }
 
 export default Home
