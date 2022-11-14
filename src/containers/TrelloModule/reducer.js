@@ -57,6 +57,11 @@ const trelloReducer = (state = INITIAL_STATE, { type, payload }) => {
         ...state,
         columns: [...state.columns, payload],
       }
+    case TrelloActionTypes.POST_SUCCESS_CARD:
+      return {
+        ...state,
+        cards: [...state.cards, payload],
+      }
     case TrelloActionTypes.DELETE_SUCCESS_LIST:
       return {
         ...state,

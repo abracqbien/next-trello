@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 
 // Components
 import AddList from "Components/TrelloModule/components/AddList"
-import Button from "Components/UiKit/Button"
+import AddCard from "Components/TrelloModule/components/AddCard"
 
 // Styles
 import {
@@ -15,6 +15,8 @@ const TrelloModule = ({
   onRemoveSuccessCode,
   onDeleteList,
   onPostList,
+  onPostCard,
+  // Others props
   currentUser,
   successCode,
   warningCode,
@@ -31,7 +33,7 @@ const TrelloModule = ({
           )
 
           return (
-            <ColumnContainer isFirstItem={index === 0}>
+            <ColumnContainer isFirstItem={index === 0} withMargin>
               <div style={{ display: "flex" }}>
                 <div className="column_title">{column?.title}</div>
                 <div
@@ -62,11 +64,12 @@ const TrelloModule = ({
                   )
                 })
               )}
-              <Button
-                label="Ajouter une autre carte"
-                hoverBckgrColor="#D9DCE2"
-                icon="fas fa-plus"
-                color="#616161"
+              <AddCard
+                onRemoveSuccessCode={onRemoveSuccessCode}
+                onPostCard={onPostCard}
+                successCode={successCode}
+                warningCode={warningCode}
+                column={column}
               />
             </ColumnContainer>
           )
@@ -86,6 +89,7 @@ TrelloModule.propTypes = {
   onRemoveSuccessCode: PropTypes.func,
   onDeleteList: PropTypes.func,
   onPostList: PropTypes.func,
+  onPostCard: PropTypes.func,
   columnLoading: PropTypes.bool,
   currentUser: PropTypes.object,
   cardLoading: PropTypes.bool,
@@ -102,6 +106,7 @@ TrelloModule.defaultProps = {
   onRemoveSuccessCode: () => {},
   onDeleteList: () => {},
   onPostList: () => {},
+  onPostCard: () => {},
   columnLoading: false,
   cardLoading: false,
   currentUser: {},

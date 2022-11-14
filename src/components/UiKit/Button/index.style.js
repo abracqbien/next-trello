@@ -33,5 +33,6 @@ export const ButtonKit = styled.button`
 
   i {
     margin: ${({ label }) => (label !== "" ? "0 10px 0 0" : "")};
+    font-size: 15px;
   }
 `

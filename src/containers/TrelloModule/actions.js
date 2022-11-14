@@ -10,6 +10,15 @@ export const postSuccessList = payload => ({
   payload,
 })
 
+export const postCard = payload => ({
+  type: TrelloActionTypes.POST_CARD,
+  payload,
+})
+export const postSuccessCard = payload => ({
+  type: TrelloActionTypes.POST_SUCCESS_CARD,
+  payload,
+})
+
 // DELETE
 export const deleteList = payload => ({
   type: TrelloActionTypes.DELETE_LIST,

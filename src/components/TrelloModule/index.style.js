@@ -9,14 +9,19 @@ export const MainContainer = styled.div`
 `
 
 export const ColumnContainer = styled.div`
-  margin: ${({ isFirstItem }) => (isFirstItem ? "0 5px 0 10px" : "0 5px")};
+  min-width: ${({ width }) => width || "270px"};
+  width: ${({ width }) => width || "270px"};
   background-color: #ebecf0;
   height: max-content;
   border-radius: 3px;
   position: relative;
-  min-width: 270px;
-  padding: 5px;
-  width: 270px;
+  padding: ${({ width }) => !width && "5px"};
+
+  ${({ withMargin }) =>
+    withMargin &&
+    css`
+      margin: ${({ isFirstItem }) => (isFirstItem ? "0 5px 0 10px" : "0 5px")};
+    `}
 
   .column_title {
     color: #000;

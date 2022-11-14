@@ -3,33 +3,36 @@ import { v4 as uuidv4 } from "uuid"
 import PropTypes from "prop-types"
 
 // Components
+import TextArea from "Components/UiKit/TextArea"
 import Button from "Components/UiKit/Button"
-import Input from "Components/UiKit/Input"
 
 // Styles
 import { ColumnContainer, ColumnAdd } from "Components/TrelloModule/index.style"
 
-const AddList = ({
+const AddCard = ({
   onRemoveSuccessCode,
-  onPostList,
+  onPostCard,
   successCode,
   warningCode,
+  column,
 }) => {
   const [workingList, setWorkingList] = useState("")
   const [atWork, setAtWork] = useState(false)
 
   useEffect(() => {
-    if (successCode === "SUCCESS_POST_LIST") {
+    if (successCode === "SUCCESS_POST_CARD") {
       onRemoveSuccessCode()
       onClean()
     }
   }, [successCode])
 
   const onSubmitList = () => {
-    onPostList({
+    onPostCard({
       id: uuidv4(),
       title: workingList,
-      cardsIds: [],
+      userFollowIds: [],
+      description: "",
+      columnId: column?.id,
     })
   }
 
@@ -39,22 +42,21 @@ const AddList = ({
   }
 
   return atWork ? (
-    <ColumnContainer withMargin>
+    <ColumnContainer width="100%">
       {warningCode !== "" && (
-        <div>Un titre doit être défini pour pouvoir créer la liste</div>
+        <div>Un titre doit être défini pour pouvoir créer cette carte</div>
       )}
-      <Input
+      <TextArea
         onChange={({ target }) => setWorkingList(target.value)}
-        placeholder="Saisissez le titre de la liste..."
+        placeholder="Saisissez un titre pour cette carte..."
         value={workingList}
         bckgrColor="#FFF"
-        height="40px"
       />
       <div style={{ display: "flex" }}>
-        <div style={{ width: "125px" }}>
+        <div style={{ width: "max-content" }}>
           <Button
             onClick={onSubmitList}
-            label="Ajouter une liste"
+            label="Ajouter une carte"
             hoverBckgrColor="#61BD4F"
             bckgrColor="#5aac44"
           />
@@ -75,29 +77,29 @@ const AddList = ({
     <ColumnAdd>
       <Button
         onClick={() => setAtWork(true)}
-        label="Ajouter une autre liste"
-        hoverBckgrColor="#ABB1B4"
-        bckgrColor="#A1A8AB"
+        label="Ajouter une autre carte"
+        hoverBckgrColor="#D9DCE2"
         icon="fas fa-plus"
-        height="40px"
-        color="#FFF"
+        color="#616161"
       />
     </ColumnAdd>
   )
 }
 
-AddList.propTypes = {
+AddCard.propTypes = {
   onRemoveSuccessCode: PropTypes.func,
-  onPostList: PropTypes.func,
+  onPostCard: PropTypes.func,
   successCode: PropTypes.string,
   warningCode: PropTypes.string,
+  column: PropTypes.object,
 }
 
-AddList.defaultProps = {
+AddCard.defaultProps = {
   onRemoveSuccessCode: () => {},
-  onPostList: () => {},
+  onPostCard: () => {},
   successCode: "",
   warningCode: "",
+  column: {},
 }
 
-export default AddList
+export default AddCard

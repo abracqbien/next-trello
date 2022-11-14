@@ -1,13 +1,12 @@
 import styled from "styled-components"
 
 export const MainContainer = styled.div`
-  height: ${({ height }) => height || "30px"};
+  height: ${({ height }) => height || "fit-content"};
   position: relative;
-  margin: 0 0 5px 0;
   width: 100%;
 `
 
-export const InputKit = styled.input`
+export const TextAreaKit = styled.textarea`
   transition: 0.25s ease;
   position: relative;
   border-radius: 3px;
@@ -25,5 +24,5 @@ export const InputKit = styled.input`
 
   /** Size */
   width: calc(100% - 5px);
-  height: 100%;
+  height: 75px;
 `

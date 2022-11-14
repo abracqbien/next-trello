@@ -9,6 +9,7 @@ import {
   removeSuccessCode,
   deleteList,
   postList,
+  postCard,
 } from "Containers/TrelloModule/actions"
 
 // Selectors
@@ -27,6 +28,7 @@ const mapDispatchToProps = dispatch => ({
   onRemoveSuccessCode: () => dispatch(removeSuccessCode()),
   onDeleteList: core => dispatch(deleteList(core)),
   onPostList: core => dispatch(postList(core)),
+  onPostCard: core => dispatch(postCard(core)),
 })
 
 const mapStateToProps = createStructuredSelector({
