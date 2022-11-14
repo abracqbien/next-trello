@@ -38,6 +38,17 @@ export const ColumnContainer = styled.div`
     &:hover {
       background-color: #f4f5f7;
     }
+
+    .card_title {
+    }
+
+    .card_icons {
+      color: #919191;
+
+      i {
+        margin: 5px;
+      }
+    }
   }
 `
 

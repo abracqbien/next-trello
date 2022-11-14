@@ -8,7 +8,16 @@ import Button from "Components/UiKit/Button"
 // Styles
 import { ColumnContainer, MainContainer } from "Components/TrelloModule/index.style"
 
-const TrelloModule = ({ onPostList, successCode, warningCode, failCode, columns, cards }) => {
+const TrelloModule = ({
+  onPostList,
+  currentUser,
+  successCode,
+  warningCode,
+  failCode,
+  columns,
+  cards,
+}) => {
+  console.log("currentUser", currentUser)
   return (
     <MainContainer id="trello_container" gridLength={columns?.length}>
       {Children.toArray(
@@ -19,11 +28,21 @@ const TrelloModule = ({ onPostList, successCode, warningCode, failCode, columns,
             <ColumnContainer isFirstItem={index === 0}>
               <div className="column_title">{column?.title}</div>
               {Children.toArray(
-                columnCards?.map(card => (
-                  <div className="column_card_item">
-                    <div className="test">{card?.title}</div>
-                  </div>
-                ))
+                columnCards?.map(card => {
+                  const userFollow = card?.userFollowIds?.filter(
+                    user => user === currentUser?.USER_ID
+                  )
+
+                  return (
+                    <div className="column_card_item">
+                      <div className="card_title">{card?.title}</div>
+                      <div className="card_icons">
+                        {userFollow?.length !== 0 && <i className="far fa-eye" />}
+                        {card?.description !== "" && <i class="fas fa-align-left" />}
+                      </div>
+                    </div>
+                  )
+                })
               )}
               <Button
                 label="Ajouter une autre carte"

@@ -8,6 +8,7 @@ import TrelloModule from "Components/TrelloModule"
 import { postList } from "Containers/TrelloModule/actions"
 
 // Selectors
+import { selectCurrentUser } from "Containers/Login/selectors"
 import {
   selectColumnLoading,
   selectCardLoading,
@@ -27,6 +28,7 @@ const mapStateToProps = createStructuredSelector({
   cardLoading: selectCardLoading,
   successCode: selectSuccessCode,
   warningCode: selectWarningCode,
+  currentUser: selectCurrentUser,
   failCode: selectFailCode,
   columns: selectColumns,
   cards: selectCards,
