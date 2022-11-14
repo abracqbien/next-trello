@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 
 export const MainContainer = styled.div`
   height: ${({ height }) => height || "30px"};
@@ -8,7 +8,6 @@ export const MainContainer = styled.div`
 `
 
 export const InputKit = styled.input`
-  transition: 0.25s ease;
   position: relative;
   border-radius: 3px;
   padding: 0 0 0 5px;
@@ -26,4 +25,12 @@ export const InputKit = styled.input`
   /** Size */
   width: calc(100% - 5px);
   height: 100%;
+
+  ${({ error }) =>
+    error &&
+    css`
+      width: calc(100% - 9px);
+      border-width: 2px;
+      border-color: red;
+    `}
 `

@@ -43,15 +43,18 @@ const AddCard = ({
 
   return atWork ? (
     <ColumnContainer width="100%">
-      {warningCode !== "" && (
-        <div>Un titre doit être défini pour pouvoir créer cette carte</div>
-      )}
       <TextArea
         onChange={({ target }) => setWorkingList(target.value)}
         placeholder="Saisissez un titre pour cette carte..."
+        error={warningCode !== ""}
         value={workingList}
         bckgrColor="#FFF"
       />
+      {warningCode !== "" && (
+        <div className="warning_message">
+          Un titre doit être défini pour pouvoir créer cette carte
+        </div>
+      )}
       <div style={{ display: "flex" }}>
         <div style={{ width: "max-content" }}>
           <Button

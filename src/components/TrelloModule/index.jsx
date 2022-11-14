@@ -1,7 +1,8 @@
-import React, { Children } from "react"
+import React, { Children, useEffect } from "react"
 import PropTypes from "prop-types"
 
 // Components
+import CardItem from "Components/TrelloModule/components/CardItem"
 import AddList from "Components/TrelloModule/components/AddList"
 import AddCard from "Components/TrelloModule/components/AddCard"
 
@@ -13,6 +14,7 @@ import {
 
 const TrelloModule = ({
   onRemoveSuccessCode,
+  onRemoveWarningCode,
   onDeleteList,
   onPostList,
   onPostCard,
@@ -24,6 +26,13 @@ const TrelloModule = ({
   columns,
   cards,
 }) => {
+  useEffect(() => {
+    if (warningCode !== "")
+      setTimeout(() => {
+        onRemoveWarningCode()
+      }, 3000)
+  }, [warningCode])
+
   return (
     <MainContainer id="trello_container" gridLength={columns?.length}>
       {Children.toArray(
@@ -49,19 +58,7 @@ const TrelloModule = ({
                     user => user === currentUser?.USER_ID
                   )
 
-                  return (
-                    <div className="column_card_item">
-                      <div className="card_title">{card?.title}</div>
-                      <div className="card_icons">
-                        {userFollow?.length !== 0 && (
-                          <i className="far fa-eye" />
-                        )}
-                        {card?.description !== "" && (
-                          <i className="fas fa-align-left" />
-                        )}
-                      </div>
-                    </div>
-                  )
+                  return <CardItem userFollow={userFollow} {...card} />
                 })
               )}
               <AddCard
@@ -87,6 +84,7 @@ const TrelloModule = ({
 
 TrelloModule.propTypes = {
   onRemoveSuccessCode: PropTypes.func,
+  onRemoveWarningCode: PropTypes.func,
   onDeleteList: PropTypes.func,
   onPostList: PropTypes.func,
   onPostCard: PropTypes.func,
@@ -104,6 +102,7 @@ TrelloModule.propTypes = {
 
 TrelloModule.defaultProps = {
   onRemoveSuccessCode: () => {},
+  onRemoveWarningCode: () => {},
   onDeleteList: () => {},
   onPostList: () => {},
   onPostCard: () => {},

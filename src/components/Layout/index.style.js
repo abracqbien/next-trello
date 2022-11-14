@@ -4,15 +4,21 @@ export const LayoutContainer = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
+
+  .warning_message {
+    color: red;
+    font-size: 11px;
+    margin: 5px 0;
+  }
 `
 
 export const BodyContainer = styled.div`
   background-color: #838c91;
-  height: calc(100% - 70px);
-  width: calc(100% - 30px);
+  height: calc(100% - 50px);
   position: relative;
-  padding: 15px;
+  padding: 5px 0;
   color: #fff;
+  width: 100%;
 `
 
 export const HeaderContainer = styled.div`

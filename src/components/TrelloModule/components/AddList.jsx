@@ -40,16 +40,19 @@ const AddList = ({
 
   return atWork ? (
     <ColumnContainer withMargin>
-      {warningCode !== "" && (
-        <div>Un titre doit être défini pour pouvoir créer la liste</div>
-      )}
       <Input
         onChange={({ target }) => setWorkingList(target.value)}
         placeholder="Saisissez le titre de la liste..."
+        error={warningCode !== ""}
         value={workingList}
         bckgrColor="#FFF"
         height="40px"
       />
+      {warningCode !== "" && (
+        <div className="warning_message">
+          Un titre doit être défini pour pouvoir créer la liste
+        </div>
+      )}
       <div style={{ display: "flex" }}>
         <div style={{ width: "125px" }}>
           <Button
