@@ -10,14 +10,18 @@ import { useMedia } from "Hooks/useMediaQuery"
 // Style
 import { LayoutContainer, BodyContainer } from "Components/Layout/index.style"
 
-const Layout = ({ children }) => {
+const Layout = ({ currentUser, currentRole, children }) => {
   const { isTablet, isMobile } = useMedia()
+
+  console.log("currentUser", currentUser)
+  console.log("currentRole", currentRole)
 
   return (
     <LayoutContainer id="layout_container">
       <Header />
       <BodyContainer>
         {cloneElement(children, {
+          currentUser,
           isTablet,
           isMobile,
         })}
@@ -26,8 +30,14 @@ const Layout = ({ children }) => {
   )
 }
 
-Layout.propTypes = {}
+Layout.propTypes = {
+  currentUser: PropTypes.object,
+  currentRole: PropTypes.object,
+}
 
-Layout.defaultProps = {}
+Layout.defaultProps = {
+  currentUser: {},
+  currentRole: {},
+}
 
 export default Layout
