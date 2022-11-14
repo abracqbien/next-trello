@@ -78,11 +78,16 @@ export const ColumnContainer = styled.div`
 `
 
 export const ColumnAdd = styled.div`
-  margin: ${({ isFirstItem }) => (isFirstItem ? "0 5px 0 10px" : "0 5px")};
+  min-width: ${({ width }) => width || "270px"};
+  width: ${({ width }) => width || "270px"};
   background-color: #a1a8ab;
   height: max-content;
   border-radius: 3px;
   position: relative;
-  min-width: 270px;
-  width: 270px;
+
+  ${({ withMargin }) =>
+    withMargin &&
+    css`
+      margin: ${({ isFirstItem }) => (isFirstItem ? "0 5px 0 10px" : "0 5px")};
+    `}
 `
