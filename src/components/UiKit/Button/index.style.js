@@ -7,6 +7,7 @@ export const MainContainer = styled.div`
 `
 
 export const ButtonKit = styled.button`
+  transition: 0.25s ease;
   position: relative;
   border-radius: 3px;
   border-width: 0px;
@@ -32,5 +33,6 @@ export const ButtonKit = styled.button`
 
   i {
     margin: ${({ label }) => (label !== "" ? "0 10px 0 0" : "")};
+    font-size: 15px;
   }
 `

@@ -8,9 +8,10 @@ export const MainContainer = styled.div`
 
 export const HeaderContainer = styled.div`
   align-items: center;
+  padding: 0 0 0 20px;
   position: relative;
   display: flex;
-  height: 30px;
+  height: 35px;
   width: 100%;
 
   .label {
@@ -21,7 +22,7 @@ export const HeaderContainer = styled.div`
 `
 
 export const BodyContainer = styled.div`
-  height: calc(100% - 30px);
+  height: calc(100% - 35px);
   position: relative;
   padding: 10px 0;
   width: 100%;

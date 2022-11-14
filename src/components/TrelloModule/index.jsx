@@ -1,16 +1,24 @@
-import React, { Children } from "react"
+import React, { Children, useEffect } from "react"
 import PropTypes from "prop-types"
 
 // Components
+import CardItem from "Components/TrelloModule/components/CardItem"
 import AddList from "Components/TrelloModule/components/AddList"
-import Button from "Components/UiKit/Button"
+import AddCard from "Components/TrelloModule/components/AddCard"
 
 // Styles
-import { ColumnContainer, MainContainer } from "Components/TrelloModule/index.style"
+import {
+  ColumnContainer,
+  MainContainer,
+} from "Components/TrelloModule/index.style"
 
 const TrelloModule = ({
   onRemoveSuccessCode,
+  onRemoveWarningCode,
+  onDeleteList,
   onPostList,
+  onPostCard,
+  // Others props
   currentUser,
   successCode,
   warningCode,
@@ -18,17 +26,29 @@ const TrelloModule = ({
   columns,
   cards,
 }) => {
+  useEffect(() => {
+    if (warningCode !== "")
+      setTimeout(() => {
+        onRemoveWarningCode()
+      }, 3000)
+  }, [warningCode])
+
   return (
     <MainContainer id="trello_container" gridLength={columns?.length}>
       {Children.toArray(
         columns?.map((column, index) => {
-          const columnCards = cards?.filter(card => card?.columnId === column?.id)
+          const columnCards = cards?.filter(
+            card => card?.columnId === column?.id
+          )
 
           return (
-            <ColumnContainer isFirstItem={index === 0}>
+            <ColumnContainer isFirstItem={index === 0} withMargin>
               <div style={{ display: "flex" }}>
                 <div className="column_title">{column?.title}</div>
-                <div className="column_delete">
+                <div
+                  className="column_delete"
+                  onClick={() => onDeleteList(column)}
+                >
                   <i className="fas fa-ellipsis-h" />
                 </div>
               </div>
@@ -38,22 +58,15 @@ const TrelloModule = ({
                     user => user === currentUser?.USER_ID
                   )
 
-                  return (
-                    <div className="column_card_item">
-                      <div className="card_title">{card?.title}</div>
-                      <div className="card_icons">
-                        {userFollow?.length !== 0 && <i className="far fa-eye" />}
-                        {card?.description !== "" && <i className="fas fa-align-left" />}
-                      </div>
-                    </div>
-                  )
+                  return <CardItem userFollow={userFollow} {...card} />
                 })
               )}
-              <Button
-                label="Ajouter une autre carte"
-                hoverBckgrColor="#D9DCE2"
-                icon="fas fa-plus"
-                color="#616161"
+              <AddCard
+                onRemoveSuccessCode={onRemoveSuccessCode}
+                onPostCard={onPostCard}
+                successCode={successCode}
+                warningCode={warningCode}
+                column={column}
               />
             </ColumnContainer>
           )
@@ -71,7 +84,10 @@ const TrelloModule = ({
 
 TrelloModule.propTypes = {
   onRemoveSuccessCode: PropTypes.func,
+  onRemoveWarningCode: PropTypes.func,
+  onDeleteList: PropTypes.func,
   onPostList: PropTypes.func,
+  onPostCard: PropTypes.func,
   columnLoading: PropTypes.bool,
   currentUser: PropTypes.object,
   cardLoading: PropTypes.bool,
@@ -86,7 +102,10 @@ TrelloModule.propTypes = {
 
 TrelloModule.defaultProps = {
   onRemoveSuccessCode: () => {},
+  onRemoveWarningCode: () => {},
+  onDeleteList: () => {},
   onPostList: () => {},
+  onPostCard: () => {},
   columnLoading: false,
   cardLoading: false,
   currentUser: {},

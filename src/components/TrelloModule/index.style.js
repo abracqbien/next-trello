@@ -9,14 +9,19 @@ export const MainContainer = styled.div`
 `
 
 export const ColumnContainer = styled.div`
-  margin: ${({ isFirstItem }) => (isFirstItem ? "0 5px 0 10px" : "0 5px")};
+  min-width: ${({ width }) => width || "270px"};
+  width: ${({ width }) => width || "270px"};
   background-color: #ebecf0;
   height: max-content;
   border-radius: 3px;
   position: relative;
-  min-width: 270px;
-  padding: 5px;
-  width: 270px;
+  padding: ${({ width }) => !width && "5px"};
+
+  ${({ withMargin }) =>
+    withMargin &&
+    css`
+      margin: ${({ isFirstItem }) => (isFirstItem ? "0 5px 0 10px" : "0 5px")};
+    `}
 
   .column_title {
     color: #000;
@@ -29,6 +34,7 @@ export const ColumnContainer = styled.div`
 
   .column_delete {
     justify-content: center;
+    transition: 0.25s ease;
     align-items: center;
     border-radius: 3px;
     cursor: pointer;
@@ -47,6 +53,7 @@ export const ColumnContainer = styled.div`
   .column_card_item {
     border-bottom: 1px solid #b2b8c4;
     background-color: #ffffff;
+    transition: 0.25s ease;
     border-radius: 3px;
     cursor: pointer;
     margin: 10px 0;
