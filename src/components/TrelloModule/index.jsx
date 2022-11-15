@@ -3,15 +3,11 @@ import PropTypes from "prop-types"
 
 // Components
 import ConfirmationModal from "Components/UiKit/Modals/ConfirmationModal"
-import CardItem from "Components/TrelloModule/components/CardItem"
+import ColumnItem from "Components/TrelloModule/components/ColumnItem"
 import AddList from "Components/TrelloModule/components/AddList"
-import AddCard from "Components/TrelloModule/components/AddCard"
 
 // Styles
-import {
-  ColumnContainer,
-  MainContainer,
-} from "Components/TrelloModule/index.style"
+import { MainContainer } from "Components/TrelloModule/index.style"
 
 const TrelloModule = ({
   onRemoveSuccessCode,
@@ -38,65 +34,55 @@ const TrelloModule = ({
   }, [warningCode])
 
   useEffect(() => {
-    if (successCode === "SUCCESS_DELETE_LIST") setConfirmeDelete(false)
+    if (successCode === "SUCCESS_DELETE_LIST") {
+      onRemoveSuccessCode()
+      onClean()
+    }
   }, [successCode])
-
-  const onConfirmDelete = column => {
-    setWorkColumn(column)
-    setConfirmeDelete(true)
-  }
-
-  const onCloseConfirmDelete = () => {
-    setConfirmeDelete(false)
-  }
 
   const onSubmitDeleteLise = () => {
     onDeleteList(workColumn)
+  }
+
+  const onClean = () => {
+    setConfirmeDelete(false)
+    setWorkColumn({})
+  }
+
+  // Modal confirmation delete
+  const onOpenConfirmDelete = column => {
+    setWorkColumn(column)
+    setConfirmeDelete(true)
   }
 
   return (
     <MainContainer id="trello_container" gridLength={columns?.length}>
       {confirmDelete && (
         <ConfirmationModal
-          onClose={onCloseConfirmDelete}
           onSubmit={onSubmitDeleteLise}
+          onClose={onClean}
           textContent={`Vous allez supprimer la liste nommée ${workColumn?.title}`}
         />
       )}
       {Children.toArray(
         columns?.map((column, index) => {
+          const isFirstItem = index === 0
           const columnCards = cards?.filter(
             card => card?.columnId === column?.id
           )
 
           return (
-            <ColumnContainer isFirstItem={index === 0} withMargin>
-              <div style={{ display: "flex" }}>
-                <div className="column_title">{column?.title}</div>
-                <div
-                  className="column_delete"
-                  onClick={() => onConfirmDelete(column)}
-                >
-                  <i className="fas fa-ellipsis-h" />
-                </div>
-              </div>
-              {Children.toArray(
-                columnCards?.map(card => {
-                  const userFollow = card?.userFollowIds?.filter(
-                    user => user === currentUser?.USER_ID
-                  )
-
-                  return <CardItem userFollow={userFollow} {...card} />
-                })
-              )}
-              <AddCard
-                onRemoveSuccessCode={onRemoveSuccessCode}
-                onPostCard={onPostCard}
-                successCode={successCode}
-                warningCode={warningCode}
-                column={column}
-              />
-            </ColumnContainer>
+            <ColumnItem
+              onRemoveSuccessCode={onRemoveSuccessCode}
+              onOpenConfirmDelete={onOpenConfirmDelete}
+              onPostCard={onPostCard}
+              isFirstItem={isFirstItem}
+              successCode={successCode}
+              warningCode={warningCode}
+              columnCards={columnCards}
+              currentUser={currentUser}
+              column={column}
+            />
           )
         })
       )}

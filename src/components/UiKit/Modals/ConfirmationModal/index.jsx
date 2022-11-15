@@ -29,10 +29,20 @@ const ConfirmationModal = ({ onSubmit, onClose, textContent }) => {
         <div className="text_content">{textContent}</div>
         <ButtonsContainer>
           <div style={{ width: "100px", margin: "0 10px 0 0" }}>
-            <Button onClick={onSubmit} bckgrColor="green" label="OK" />
+            <Button
+              onClick={onSubmit}
+              hoverBckgrColor="#86bb86"
+              bckgrColor="green"
+              label="OK"
+            />
           </div>
           <div style={{ width: "100px" }}>
-            <Button onClick={onClose} bckgrColor="red" label="Annuler" />
+            <Button
+              onClick={onClose}
+              hoverBckgrColor="#f7b5b5"
+              bckgrColor="red"
+              label="Annuler"
+            />
           </div>
         </ButtonsContainer>
       </ModalContentContainer>

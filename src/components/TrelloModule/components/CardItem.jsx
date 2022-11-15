@@ -12,7 +12,7 @@ const CardItem = ({ description, userFollow, title }) => (
 )
 
 CardItem.propTypes = {
-  description: "",
+  description: PropTypes.string,
   userFollow: PropTypes.array,
   title: PropTypes.string,
 }
