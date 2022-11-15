@@ -1,11 +1,12 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
 
+// Components
+import AddDescription from "Components/TrelloModule/components/AddDescription"
+
 // Ui kit
 import ConfirmationModal from "Components/UiKit/Modals/ConfirmationModal"
 import Modal from "Components/UiKit/Modals/Modal"
-import TextArea from "Components/UiKit/TextArea"
-import Button from "Components/UiKit/Button"
 
 // Style
 import { ModalContainer } from "Components/TrelloModule/index.style"
@@ -80,34 +81,12 @@ const ModalWorkCard = ({
                 <div className="description">{workCard?.description}</div>
               </div>
             ) : atWork ? (
-              <div style={{ width: "100%" }}>
-                <TextArea
-                  onChange={e => onChange(e)}
-                  placeholder="Ajouter une description plus détaillée..."
-                  value={workCard?.description}
-                  bckgrColor="#FFF"
-                />
-                <div className="add_container_buttons">
-                  <div className="add_container_buttons_first_button">
-                    <Button
-                      onClick={onSubmit}
-                      label="Enregistrer"
-                      hoverBckgrColor="#61BD4F"
-                      bckgrColor="#5aac44"
-                    />
-                  </div>
-                  <div className="add_container_buttons_second_button">
-                    <Button
-                      onClick={() => setAtWork(false)}
-                      hoverBckgrColor="#F4F5F7"
-                      bckgrColor="#EBECF0"
-                      icon="fas fa-times"
-                      color="#919191"
-                      label=""
-                    />
-                  </div>
-                </div>
-              </div>
+              <AddDescription
+                setAtWork={setAtWork}
+                onChange={onChange}
+                onSubmit={onSubmit}
+                workCard={workCard}
+              />
             ) : (
               <div style={{ width: "100%" }}>
                 <div
