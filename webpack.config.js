@@ -1,4 +1,5 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
 const path = require("path")
 
 const devMode = true
@@ -50,6 +51,9 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: devMode ? "[name].css" : "[name].[hash].css",
       chunkFilename: devMode ? "[id].css" : "[id].[hash].css",
+    }),
+    new HtmlWebpackPlugin({
+      title: "Production",
     }),
   ],
   resolve: {
