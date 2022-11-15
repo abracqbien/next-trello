@@ -4,25 +4,23 @@ import PropTypes from "prop-types"
 // Style
 import { MainContainer } from "Components/UiKit/Modals/Modal/index.style"
 
-const Modal = ({ closeModal, children }) => {
-  return (
-    <MainContainer onClick={closeModal}>
-      <div
-        onClick={e => e.stopPropagation()}
-        className="popUpContainer scale-up-center"
-      >
-        {children}
-      </div>
-    </MainContainer>
-  )
-}
+const Modal = ({ onCloseModal, children }) => (
+  <MainContainer onClick={onCloseModal}>
+    <div
+      onClick={e => e.stopPropagation()}
+      className="popUpContainer scale-up-center"
+    >
+      {children}
+    </div>
+  </MainContainer>
+)
 
 Modal.propTypes = {
-  closeModal: PropTypes.func,
+  onCloseModal: PropTypes.func,
 }
 
 Modal.defaultProps = {
-  closeModal: () => {},
+  onCloseModal: () => {},
 }
 
 export default Modal

@@ -62,10 +62,23 @@ const trelloReducer = (state = INITIAL_STATE, { type, payload }) => {
         ...state,
         cards: [...state.cards, payload],
       }
+    case TrelloActionTypes.PATCH_SUCCESS_CARD:
+      return {
+        ...state,
+        cards: [
+          ...state.cards?.filter(card => card?.id !== payload?.id),
+          payload,
+        ],
+      }
     case TrelloActionTypes.DELETE_SUCCESS_LIST:
       return {
         ...state,
         columns: payload,
+      }
+    case TrelloActionTypes.DELETE_SUCCESS_CARD:
+      return {
+        ...state,
+        cards: payload,
       }
     case TrelloActionTypes.SET_SUCCESS_CODE:
       return {
