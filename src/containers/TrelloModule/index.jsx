@@ -16,8 +16,6 @@ import {
 // Selectors
 import { selectCurrentUser } from "Containers/Login/selectors"
 import {
-  selectColumnLoading,
-  selectCardLoading,
   selectSuccessCode,
   selectWarningCode,
   selectFailCode,
@@ -34,8 +32,6 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = createStructuredSelector({
-  columnLoading: selectColumnLoading,
-  cardLoading: selectCardLoading,
   successCode: selectSuccessCode,
   warningCode: selectWarningCode,
   currentUser: selectCurrentUser,

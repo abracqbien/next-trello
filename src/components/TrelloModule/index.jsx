@@ -40,7 +40,7 @@ const TrelloModule = ({
     }
   }, [successCode])
 
-  const onSubmitDeleteLise = () => {
+  const onSubmitDeleteList = () => {
     onDeleteList(workColumn)
   }
 
@@ -59,7 +59,7 @@ const TrelloModule = ({
     <MainContainer id="trello_container" gridLength={columns?.length}>
       {confirmDelete && (
         <ConfirmationModal
-          onSubmit={onSubmitDeleteLise}
+          onSubmit={onSubmitDeleteList}
           onClose={onClean}
           textContent={`Vous allez supprimer la liste nommée ${workColumn?.title}`}
         />
@@ -76,6 +76,7 @@ const TrelloModule = ({
               onRemoveSuccessCode={onRemoveSuccessCode}
               onOpenConfirmDelete={onOpenConfirmDelete}
               onPostCard={onPostCard}
+              // Others props
               isFirstItem={isFirstItem}
               successCode={successCode}
               warningCode={warningCode}
@@ -103,14 +104,10 @@ TrelloModule.propTypes = {
   onPostList: PropTypes.func,
   onPostCard: PropTypes.func,
   // Others props
-  columnLoading: PropTypes.bool,
   currentUser: PropTypes.object,
-  cardLoading: PropTypes.bool,
   successCode: PropTypes.string,
   warningCode: PropTypes.string,
   failCode: PropTypes.string,
-  isTablet: PropTypes.bool,
-  isMobile: PropTypes.bool,
   columns: PropTypes.array,
   cards: PropTypes.array,
 }
@@ -122,14 +119,10 @@ TrelloModule.defaultProps = {
   onPostList: () => {},
   onPostCard: () => {},
   // Others props
-  columnLoading: false,
-  cardLoading: false,
   currentUser: {},
   successCode: "",
   warningCode: "",
   failCode: "",
-  isTablet: false,
-  isMobile: false,
   columns: [],
   cards: [],
 }

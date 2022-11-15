@@ -53,8 +53,8 @@ const AddList = ({
           Un titre doit être défini pour pouvoir créer la liste
         </div>
       )}
-      <div style={{ display: "flex" }}>
-        <div style={{ width: "125px" }}>
+      <div className="add_container_buttons">
+        <div className="add_container_buttons_first_button">
           <Button
             onClick={onSubmitList}
             label="Ajouter une liste"
@@ -62,7 +62,7 @@ const AddList = ({
             bckgrColor="#5aac44"
           />
         </div>
-        <div style={{ width: "40px", margin: "0 5px" }}>
+        <div className="add_container_buttons_second_button">
           <Button
             onClick={onClean}
             hoverBckgrColor="#F4F5F7"

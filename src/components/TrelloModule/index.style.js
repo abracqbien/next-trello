@@ -50,6 +50,18 @@ export const ColumnContainer = styled.div`
     }
   }
 
+  .add_container_buttons {
+    display: flex;
+
+    &_first_button {
+      width: max-content;
+    }
+    &_second_button {
+      margin: 0 5px;
+      width: 40px;
+    }
+  }
+
   .column_card_item {
     border-bottom: 1px solid #b2b8c4;
     background-color: #ffffff;
