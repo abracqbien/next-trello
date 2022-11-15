@@ -1,6 +1,6 @@
 # next-trello
 
-Exercice Développeur React (Trello) React JS v16.8+
+Exercise Next Trello - React JS v16.8+
 
 ## Installation
 
