@@ -2,7 +2,9 @@ import { takeEvery, take, select, call, put } from "redux-saga/effects"
 
 // Actions
 import {
+  deleteSuccessCard,
   deleteSuccessList,
+  patchSuccessCard,
   postSuccessList,
   postSuccessCard,
   setSuccessCode,
@@ -11,7 +13,7 @@ import {
 } from "Containers/TrelloModule/actions"
 
 // Selectors
-import { selectColumns } from "Containers/TrelloModule/selectors"
+import { selectColumns, selectCards } from "Containers/TrelloModule/selectors"
 
 // Types
 import TrelloActionTypes from "Containers/TrelloModule/types"
@@ -56,7 +58,7 @@ function* postCard({ payload }) {
   // try {
   //   const response = yield call(request)
   // } catch (error) {
-  //   console.error('postList ERROR | ', error)
+  //   console.error('postCard ERROR | ', error)
   // }
 
   if (payload?.title === "") {
@@ -73,12 +75,48 @@ function* postCard({ payload }) {
   }
 }
 
+function* patchCard({ payload }) {
+  // try {
+  //   const response = yield call(request)
+  // } catch (error) {
+  //   console.error('patchCard ERROR | ', error)
+  // }
+
+  if (payload?.title === "") {
+    yield put(setWarningCode("CARD_TITLE_EMPTY"))
+  } else {
+    const responseBack = { type: "success" }
+
+    if (responseBack?.type === "success") {
+      yield put(setSuccessCode("SUCCESS_PATCH_CARD"))
+      yield put(patchSuccessCard(payload))
+    } else if (responseBack?.type === "fail") {
+      yield put(setFailCode("FAIL_PATCH_CARD"))
+    }
+  }
+}
+
+function* deleteCard({ payload }) {
+  // try {
+  //   const response = yield call(request)
+  // } catch (error) {
+  //   console.error('deleteCard ERROR | ', error)
+  // }
+
+  const cards = yield select(selectCards)
+
+  yield put(setSuccessCode("SUCCESS_DELETE_CARD"))
+  yield put(deleteSuccessCard(cards?.filter(item => item?.id !== payload?.id)))
+}
+
 // ***************************** //
 //              Sagas            //
 // ***************************** //
 function* trelloSaga() {
   yield takeEvery(TrelloActionTypes.DELETE_LIST, deleteList)
   yield takeEvery(TrelloActionTypes.POST_LIST, postList)
+  yield takeEvery(TrelloActionTypes.DELETE_CARD, deleteCard)
+  yield takeEvery(TrelloActionTypes.PATCH_CARD, patchCard)
   yield takeEvery(TrelloActionTypes.POST_CARD, postCard)
 }
 

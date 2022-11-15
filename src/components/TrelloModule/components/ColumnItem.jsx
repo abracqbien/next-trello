@@ -1,5 +1,6 @@
 import React, { Children } from "react"
 import PropTypes from "prop-types"
+import { orderBy } from "lodash"
 
 // Components
 import CardItem from "Components/TrelloModule/components/CardItem"

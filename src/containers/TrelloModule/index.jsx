@@ -8,7 +8,9 @@ import TrelloModule from "Components/TrelloModule"
 import {
   removeSuccessCode,
   removeWarningCode,
+  deleteCard,
   deleteList,
+  patchCard,
   postList,
   postCard,
 } from "Containers/TrelloModule/actions"
@@ -27,6 +29,8 @@ const mapDispatchToProps = dispatch => ({
   onRemoveSuccessCode: () => dispatch(removeSuccessCode()),
   onRemoveWarningCode: () => dispatch(removeWarningCode()),
   onDeleteList: core => dispatch(deleteList(core)),
+  onDeleteCard: core => dispatch(deleteCard(core)),
+  onPatchCard: core => dispatch(patchCard(core)),
   onPostList: core => dispatch(postList(core)),
   onPostCard: core => dispatch(postCard(core)),
 })

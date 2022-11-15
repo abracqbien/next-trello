@@ -16,6 +16,8 @@ const TrelloModule = ({
   onRemoveSuccessCode,
   onRemoveWarningCode,
   onDeleteList,
+  onDeleteCard,
+  onPatchCard,
   onPostList,
   onPostCard,
   // Others props
@@ -26,7 +28,8 @@ const TrelloModule = ({
   columns,
   cards,
 }) => {
-  const [confirmDelete, setConfirmeDelete] = useState(false)
+  const [confirmDeleteCard, setConfirmeDeleteCard] = useState(false)
+  const [confirmDeleteList, setConfirmeDeleteList] = useState(false)
   const [modalWorkCard, setModalWorkCard] = useState(false)
   const [workColumn, setWorkColumn] = useState({})
   const [workCard, setWorkCard] = useState({})
@@ -43,6 +46,10 @@ const TrelloModule = ({
       onRemoveSuccessCode()
       onCleanDeleteList()
     }
+    if (successCode === "SUCCESS_DELETE_CARD") {
+      onRemoveSuccessCode()
+      onCleanDeleteCard()
+    }
   }, [successCode])
 
   // Functions List
@@ -50,17 +57,22 @@ const TrelloModule = ({
     onDeleteList(workColumn)
   }
   const onCleanDeleteList = () => {
-    setConfirmeDelete(false)
+    setConfirmeDeleteList(false)
     setWorkColumn({})
   }
   const onOpenConfirmDeleteList = column => {
     setWorkColumn(column)
-    setConfirmeDelete(true)
+    setConfirmeDeleteList(true)
   }
 
   // Functions Card
+  const onSubmitDeleteCard = () => {
+    onDeleteCard(workCard)
+  }
   const onCleanDeleteCard = () => {
+    setConfirmeDeleteCard(false)
     setModalWorkCard(false)
+    setWorkColumn({})
     setWorkCard({})
   }
   const onOpenWorkCard = card => {
@@ -70,10 +82,13 @@ const TrelloModule = ({
     setWorkCard(card)
     setModalWorkCard(true)
   }
+  const onOpenConfirmDeleteCard = () => {
+    setConfirmeDeleteCard(true)
+  }
 
   return (
     <MainContainer id="trello_container" gridLength={columns?.length}>
-      {confirmDelete && (
+      {confirmDeleteList && (
         <ConfirmationModal
           onSubmit={onSubmitDeleteList}
           onClose={onCleanDeleteList}
@@ -82,10 +97,16 @@ const TrelloModule = ({
       )}
       {modalWorkCard && (
         <ModalWorkCard
+          onOpenConfirmDeleteCard={onOpenConfirmDeleteCard}
+          onSubmitDeleteCard={onSubmitDeleteCard}
           onCleanDeleteCard={onCleanDeleteCard}
+          onPatchCard={onPatchCard}
+          setWorkCard={setWorkCard}
+          // Others props
+          confirmDeleteCard={confirmDeleteCard}
           currentUser={currentUser}
+          workCard={workCard}
           column={workColumn}
-          {...workCard}
         />
       )}
       {Children.toArray(
@@ -126,6 +147,8 @@ TrelloModule.propTypes = {
   onRemoveSuccessCode: PropTypes.func,
   onRemoveWarningCode: PropTypes.func,
   onDeleteList: PropTypes.func,
+  onDeleteCard: PropTypes.func,
+  onPatchCard: PropTypes.func,
   onPostList: PropTypes.func,
   onPostCard: PropTypes.func,
   // Others props
@@ -141,6 +164,8 @@ TrelloModule.defaultProps = {
   onRemoveSuccessCode: () => {},
   onRemoveWarningCode: () => {},
   onDeleteList: () => {},
+  onDeleteCard: () => {},
+  onPatchCard: () => {},
   onPostList: () => {},
   onPostCard: () => {},
   // Others props

@@ -146,16 +146,15 @@ export const ModalContainer = styled.div`
   .modal_body {
     margin-bottom: 20px;
     display: flex;
+    .title {
+      margin-bottom: 5px;
+      line-height: 32px;
+      font-weight: 600;
+      font-size: 18px;
+    }
 
     .left_container {
       flex-grow: 1;
-
-      .title_left_container {
-        margin-bottom: 5px;
-        line-height: 32px;
-        font-weight: 600;
-        font-size: 18px;
-      }
 
       .description {
         cursor: pointer;
@@ -168,6 +167,51 @@ export const ModalContainer = styled.div`
       padding-left: 20px;
       min-width: 190px;
       display: flex;
+
+      .follow_container {
+        border-width: 0px;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 14px;
+        margin: 4px 0px;
+        padding-left: 12px;
+        outline: none;
+        line-height: 32px;
+        height: 32px;
+        background-color: rgba(9, 30, 66, 0.04);
+        color: rgb(49, 49, 49);
+        align-items: center;
+        display: flex;
+        padding-right: 4px;
+        position: relative;
+        text-align: left;
+
+        &:hover {
+          background-color: rgba(9, 30, 66, 0.08);
+          color: rgb(0, 0, 0);
+        }
+
+        .card_icons {
+          color: #919191;
+
+          i {
+            margin: 0 10px 0 0;
+          }
+        }
+
+        .check_box {
+          background-color: rgb(97, 189, 79);
+          justify-content: center;
+          align-items: center;
+          border-radius: 3px;
+          margin-left: auto;
+          font-size: 0.8rem;
+          display: flex;
+          height: 24px;
+          width: 24px;
+          color: #fff;
+        }
+      }
     }
   }
 `
