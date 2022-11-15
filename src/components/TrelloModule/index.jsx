@@ -104,6 +104,7 @@ const TrelloModule = ({
           setWorkCard={setWorkCard}
           // Others props
           confirmDeleteCard={confirmDeleteCard}
+          warningCode={warningCode}
           currentUser={currentUser}
           workCard={workCard}
           column={workColumn}

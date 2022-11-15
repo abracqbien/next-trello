@@ -156,9 +156,30 @@ export const ModalContainer = styled.div`
     .left_container {
       flex-grow: 1;
 
+      .description_edit_container {
+        background-color: rgba(9, 30, 66, 0.08);
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 14px;
+        height: 50px;
+        padding: 8px 12px;
+      }
+
       .description {
         cursor: pointer;
         font-size: 14px;
+      }
+
+      .add_container_buttons {
+        display: flex;
+
+        &_first_button {
+          width: max-content;
+        }
+        &_second_button {
+          margin: 0 5px;
+          width: 40px;
+        }
       }
     }
 

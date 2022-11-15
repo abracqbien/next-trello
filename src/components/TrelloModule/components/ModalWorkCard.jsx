@@ -4,6 +4,8 @@ import PropTypes from "prop-types"
 // Ui kit
 import ConfirmationModal from "Components/UiKit/Modals/ConfirmationModal"
 import Modal from "Components/UiKit/Modals/Modal"
+import TextArea from "Components/UiKit/TextArea"
+import Button from "Components/UiKit/Button"
 
 // Style
 import { ModalContainer } from "Components/TrelloModule/index.style"
@@ -20,6 +22,8 @@ const ModalWorkCard = ({
   workCard,
   column,
 }) => {
+  const [atWork, setAtWork] = useState(false)
+
   const onSwitch = () => {
     setWorkCard({
       ...workCard,
@@ -33,6 +37,18 @@ const ModalWorkCard = ({
         ? workCard?.userFollowIds?.filter(user => user !== currentUser?.USER_ID)
         : [...workCard?.userFollowIds, currentUser?.USER_ID],
     })
+  }
+
+  const onChange = ({ target }) => {
+    setWorkCard({
+      ...workCard,
+      description: target.value,
+    })
+  }
+
+  const onSubmit = () => {
+    onPatchCard(workCard)
+    setAtWork(false)
   }
 
   const userFollowing = workCard?.userFollowIds?.includes(currentUser?.USER_ID)
@@ -59,13 +75,47 @@ const ModalWorkCard = ({
         <div className="modal_body">
           <div className="left_container">
             <div className="title">Description</div>
-            {workCard?.description !== "" ? (
-              <div>
+            {workCard?.description !== "" && !atWork ? (
+              <div onClick={() => setAtWork(true)}>
                 <div className="description">{workCard?.description}</div>
               </div>
+            ) : atWork ? (
+              <div style={{ width: "100%" }}>
+                <TextArea
+                  onChange={e => onChange(e)}
+                  placeholder="Ajouter une description plus détaillée..."
+                  value={workCard?.description}
+                  bckgrColor="#FFF"
+                />
+                <div className="add_container_buttons">
+                  <div className="add_container_buttons_first_button">
+                    <Button
+                      onClick={onSubmit}
+                      label="Enregistrer"
+                      hoverBckgrColor="#61BD4F"
+                      bckgrColor="#5aac44"
+                    />
+                  </div>
+                  <div className="add_container_buttons_second_button">
+                    <Button
+                      onClick={() => setAtWork(false)}
+                      hoverBckgrColor="#F4F5F7"
+                      bckgrColor="#EBECF0"
+                      icon="fas fa-times"
+                      color="#919191"
+                      label=""
+                    />
+                  </div>
+                </div>
+              </div>
             ) : (
-              <div>
-                <div></div>
+              <div style={{ width: "100%" }}>
+                <div
+                  onClick={() => setAtWork(true)}
+                  className="description_edit_container"
+                >
+                  Ajouter une description plus détaillée...
+                </div>
               </div>
             )}
           </div>
@@ -107,6 +157,7 @@ ModalWorkCard.propTypes = {
   // Others props
   confirmDeleteCard: PropTypes.bool,
   currentUser: PropTypes.object,
+  warningCode: PropTypes.string,
   workCard: PropTypes.object,
   column: PropTypes.object,
 }
@@ -119,6 +170,7 @@ ModalWorkCard.defaultProps = {
   setWorkCard: () => {},
   // Others props
   confirmDeleteCard: false,
+  warningCode: "",
   currentUser: {},
   workCard: {},
   column: {},
