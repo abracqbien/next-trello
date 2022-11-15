@@ -52,9 +52,9 @@ module.exports = {
       filename: devMode ? "[name].css" : "[name].[hash].css",
       chunkFilename: devMode ? "[id].css" : "[id].[hash].css",
     }),
-    new HtmlWebpackPlugin({
-      title: "Production",
-    }),
+    // new HtmlWebpackPlugin({
+    //   title: "Production",
+    // }),
   ],
   resolve: {
     alias: {
