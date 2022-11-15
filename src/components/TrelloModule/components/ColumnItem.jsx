@@ -9,8 +9,9 @@ import AddCard from "Components/TrelloModule/components/AddCard"
 import { ColumnContainer } from "Components/TrelloModule/index.style"
 
 const ColumnItem = ({
+  onOpenConfirmDeleteList,
   onRemoveSuccessCode,
-  onOpenConfirmDelete,
+  onOpenWorkCard,
   onPostCard,
   // Others props
   isFirstItem,
@@ -25,7 +26,7 @@ const ColumnItem = ({
       <div className="column_title">{column?.title}</div>
       <div
         className="column_delete"
-        onClick={() => onOpenConfirmDelete(column)}
+        onClick={() => onOpenConfirmDeleteList(column)}
       >
         <i className="fas fa-ellipsis-h" />
       </div>
@@ -36,7 +37,13 @@ const ColumnItem = ({
           user => user === currentUser?.USER_ID
         )
 
-        return <CardItem userFollow={userFollow} {...card} />
+        return (
+          <CardItem
+            onOpenWorkCard={onOpenWorkCard}
+            userFollow={userFollow}
+            card={card}
+          />
+        )
       })
     )}
     <AddCard
@@ -50,8 +57,9 @@ const ColumnItem = ({
 )
 
 ColumnItem.propTypes = {
+  onOpenConfirmDeleteList: PropTypes.func,
   onRemoveSuccessCode: PropTypes.func,
-  onOpenConfirmDelete: PropTypes.func,
+  onOpenWorkCard: PropTypes.func,
   onPostCard: PropTypes.func,
   // Others props
   successCode: PropTypes.string,
@@ -64,8 +72,9 @@ ColumnItem.propTypes = {
 }
 
 ColumnItem.defaultProps = {
+  onOpenConfirmDeleteList: () => {},
   onRemoveSuccessCode: () => {},
-  onOpenConfirmDelete: () => {},
+  onOpenWorkCard: () => {},
   onPostCard: () => {},
   // Others props
   isFirstItem: false,

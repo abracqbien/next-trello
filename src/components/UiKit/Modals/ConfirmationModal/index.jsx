@@ -16,12 +16,7 @@ import {
 
 const ConfirmationModal = ({ onSubmit, onClose, textContent }) => {
   return (
-    <Modal
-      width={"500px"}
-      height={""}
-      closeOnClickOut={true}
-      closeModal={onClose}
-    >
+    <Modal onCloseModal={onClose}>
       <ModalContentContainer>
         <div className="icon_container">
           <WarningIcon />

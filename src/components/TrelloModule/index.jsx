@@ -2,9 +2,12 @@ import React, { Children, useEffect, useState } from "react"
 import PropTypes from "prop-types"
 
 // Components
-import ConfirmationModal from "Components/UiKit/Modals/ConfirmationModal"
+import ModalWorkCard from "Components/TrelloModule/components/ModalWorkCard"
 import ColumnItem from "Components/TrelloModule/components/ColumnItem"
 import AddList from "Components/TrelloModule/components/AddList"
+
+// Ui kit
+import ConfirmationModal from "Components/UiKit/Modals/ConfirmationModal"
 
 // Styles
 import { MainContainer } from "Components/TrelloModule/index.style"
@@ -24,7 +27,9 @@ const TrelloModule = ({
   cards,
 }) => {
   const [confirmDelete, setConfirmeDelete] = useState(false)
+  const [modalWorkCard, setModalWorkCard] = useState(false)
   const [workColumn, setWorkColumn] = useState({})
+  const [workCard, setWorkCard] = useState({})
 
   useEffect(() => {
     if (warningCode !== "")
@@ -36,23 +41,34 @@ const TrelloModule = ({
   useEffect(() => {
     if (successCode === "SUCCESS_DELETE_LIST") {
       onRemoveSuccessCode()
-      onClean()
+      onCleanDeleteList()
     }
   }, [successCode])
 
+  // Functions List
   const onSubmitDeleteList = () => {
     onDeleteList(workColumn)
   }
-
-  const onClean = () => {
+  const onCleanDeleteList = () => {
     setConfirmeDelete(false)
     setWorkColumn({})
   }
-
-  // Modal confirmation delete
-  const onOpenConfirmDelete = column => {
+  const onOpenConfirmDeleteList = column => {
     setWorkColumn(column)
     setConfirmeDelete(true)
+  }
+
+  // Functions Card
+  const onCleanDeleteCard = () => {
+    setModalWorkCard(false)
+    setWorkCard({})
+  }
+  const onOpenWorkCard = card => {
+    const column = columns?.filter(column => column?.id == card?.columnId)?.[0]
+
+    setWorkColumn(column)
+    setWorkCard(card)
+    setModalWorkCard(true)
   }
 
   return (
@@ -60,8 +76,16 @@ const TrelloModule = ({
       {confirmDelete && (
         <ConfirmationModal
           onSubmit={onSubmitDeleteList}
-          onClose={onClean}
+          onClose={onCleanDeleteList}
           textContent={`Vous allez supprimer la liste nommée ${workColumn?.title}`}
+        />
+      )}
+      {modalWorkCard && (
+        <ModalWorkCard
+          onCleanDeleteCard={onCleanDeleteCard}
+          currentUser={currentUser}
+          column={workColumn}
+          {...workCard}
         />
       )}
       {Children.toArray(
@@ -73,8 +97,9 @@ const TrelloModule = ({
 
           return (
             <ColumnItem
+              onOpenConfirmDeleteList={onOpenConfirmDeleteList}
               onRemoveSuccessCode={onRemoveSuccessCode}
-              onOpenConfirmDelete={onOpenConfirmDelete}
+              onOpenWorkCard={onOpenWorkCard}
               onPostCard={onPostCard}
               // Others props
               isFirstItem={isFirstItem}

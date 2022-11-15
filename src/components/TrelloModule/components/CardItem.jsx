@@ -1,12 +1,12 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-const CardItem = ({ description, userFollow, title }) => (
-  <div className="column_card_item">
-    <div className="card_title">{title}</div>
+const CardItem = ({ onOpenWorkCard, userFollow, card }) => (
+  <div className="column_card_item" onClick={() => onOpenWorkCard(card)}>
+    <div className="card_title">{card?.title}</div>
     <div className="card_icons">
       {userFollow?.length !== 0 && <i className="far fa-eye" />}
-      {description !== "" && <i className="fas fa-align-left" />}
+      {card?.description !== "" && <i className="fas fa-align-left" />}
     </div>
   </div>
 )
@@ -14,13 +14,13 @@ const CardItem = ({ description, userFollow, title }) => (
 CardItem.propTypes = {
   description: PropTypes.string,
   userFollow: PropTypes.array,
-  title: PropTypes.string,
+  card: PropTypes.object,
 }
 
 CardItem.defaultProps = {
   description: "",
   userFollow: [],
-  title: "",
+  card: {},
 }
 
 export default CardItem
