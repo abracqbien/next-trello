@@ -1,6 +1,7 @@
 # next-trello
 
 Exercise Next Trello - React JS v16.8+
+Firebase hosting: https://next-trello-b2b3d.web.app/
 
 ## Installation
 
