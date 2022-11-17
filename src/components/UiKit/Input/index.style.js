@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components"
 
 export const MainContainer = styled.div`
-  height: ${({ height }) => height || "30px"};
+  height: max-content;
   position: relative;
   margin: 0 0 5px 0;
   width: 100%;
@@ -23,8 +23,8 @@ export const InputKit = styled.input`
   color: ${({ color }) => color || "#000"};
 
   /** Size */
+  height: ${({ height }) => height || "30px"};
   width: calc(100% - 5px);
-  height: 100%;
 
   ${({ error }) =>
     error &&

@@ -6,6 +6,9 @@ import PropTypes from "prop-types"
 import TextArea from "Components/UiKit/TextArea"
 import Button from "Components/UiKit/Button"
 
+// Models
+import { cardModels } from "Components/TrelloModule/models"
+
 // Styles
 import { ColumnContainer, ColumnAdd } from "Components/TrelloModule/index.style"
 
@@ -16,7 +19,7 @@ const AddCard = ({
   warningCode,
   column,
 }) => {
-  const [workingList, setWorkingList] = useState("")
+  const [workingCard, setWorkingCard] = useState(cardModels(column?.id))
   const [atWork, setAtWork] = useState(false)
 
   useEffect(() => {
@@ -27,34 +30,31 @@ const AddCard = ({
   }, [successCode])
 
   const onSubmitList = () => {
-    onPostCard({
-      id: uuidv4(),
-      title: workingList,
-      userFollowIds: [],
-      description: "",
-      columnId: column?.id,
+    onPostCard(workingCard)
+  }
+
+  const onChange = ({ target }) => {
+    setWorkingCard({
+      ...workingCard,
+      title: target.value,
     })
   }
 
   const onClean = () => {
-    setWorkingList("")
+    setWorkingCard(cardModels(column?.id))
     setAtWork(false)
   }
 
   return atWork ? (
     <ColumnContainer width="100%">
       <TextArea
-        onChange={({ target }) => setWorkingList(target.value)}
+        onChange={e => onChange(e)}
+        errorText="Un titre doit être défini pour pouvoir créer cette carte"
+        error={warningCode == `CARD_TITLE_EMPTY_${workingCard.id}`}
         placeholder="Saisissez un titre pour cette carte..."
-        error={warningCode !== ""}
-        value={workingList}
+        value={workingCard?.title}
         bckgrColor="#FFF"
       />
-      {warningCode !== "" && (
-        <div className="warning_message_without_margin">
-          Un titre doit être défini pour pouvoir créer cette carte
-        </div>
-      )}
       <div className="add_container_buttons">
         <div className="add_container_buttons_first_button">
           <Button

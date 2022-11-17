@@ -8,7 +8,7 @@ const Modal = ({ onCloseModal, children }) => (
   <MainContainer onClick={onCloseModal}>
     <div
       onClick={e => e.stopPropagation()}
-      className="popUpContainer scale-up-center"
+      className="modal_container scale-up-center"
     >
       {children}
     </div>
