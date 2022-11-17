@@ -15,6 +15,15 @@ export const LayoutContainer = styled.div`
     font-size: 11px;
     margin: 0 0 5px 0;
   }
+
+  .full_size {
+    height: 100%;
+    width: 100%;
+  }
+
+  .pointer {
+    cursor: pointer;
+  }
 `
 
 export const BodyContainer = styled.div`

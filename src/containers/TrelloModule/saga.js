@@ -47,7 +47,6 @@ function* deleteList({ payload }) {
 }
 
 function* postCard({ payload }) {
-  console.log("payload", payload)
   if (payload?.title === "") {
     yield put(setWarningCode(`CARD_TITLE_EMPTY_${payload.id}`))
   } else {
