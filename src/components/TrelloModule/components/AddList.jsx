@@ -6,16 +6,14 @@ import PropTypes from "prop-types"
 import Button from "Components/UiKit/Button"
 import Input from "Components/UiKit/Input"
 
+// Models
+import { listModels } from "Components/TrelloModule/models"
+
 // Styles
 import { ColumnContainer, ColumnAdd } from "Components/TrelloModule/index.style"
 
-const AddList = ({
-  onRemoveSuccessCode,
-  onPostList,
-  successCode,
-  warningCode,
-}) => {
-  const [workingList, setWorkingList] = useState("")
+const AddList = ({ onRemoveSuccessCode, onPostList, successCode, warningCode }) => {
+  const [workingList, setWorkingList] = useState(listModels())
   const [atWork, setAtWork] = useState(false)
 
   useEffect(() => {
@@ -26,33 +24,32 @@ const AddList = ({
   }, [successCode])
 
   const onSubmitList = () => {
-    onPostList({
-      id: uuidv4(),
-      title: workingList,
-      cardsIds: [],
+    onPostList(workingList)
+  }
+
+  const onChange = ({ target }) => {
+    setWorkingList({
+      ...workingList,
+      title: target.value,
     })
   }
 
   const onClean = () => {
-    setWorkingList("")
+    setWorkingList(listModels())
     setAtWork(false)
   }
 
   return atWork ? (
     <ColumnContainer withMargin>
       <Input
-        onChange={({ target }) => setWorkingList(target.value)}
+        onChange={e => onChange(e)}
+        errorText="Un titre doit être défini pour pouvoir créer la liste"
+        error={warningCode == `LIST_TITLE_EMPTY_${workingList?.id}`}
         placeholder="Saisissez le titre de la liste..."
-        error={warningCode !== ""}
-        value={workingList}
+        value={workingList?.title}
         bckgrColor="#FFF"
         height="40px"
       />
-      {warningCode !== "" && (
-        <div className="warning_message">
-          Un titre doit être défini pour pouvoir créer la liste
-        </div>
-      )}
       <div className="add_container_buttons">
         <div className="add_container_buttons_first_button">
           <Button

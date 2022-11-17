@@ -70,7 +70,7 @@ const TrelloModule = ({
   } = useCard(onDeleteCard, setWorkColumn, cards)
 
   return (
-    <MainContainer id="trello_container" gridLength={columns?.length}>
+    <MainContainer id="trello_container">
       {confirmDeleteList && (
         <ConfirmationModal
           onSubmit={onSubmitDeleteList}
@@ -96,9 +96,7 @@ const TrelloModule = ({
       {Children.toArray(
         columns?.map((column, index) => {
           const isFirstItem = index === 0
-          const columnCards = cards?.filter(
-            card => card?.columnId === column?.id
-          )
+          const columnCards = cards?.filter(card => card?.columnId === column?.id)
 
           return (
             <ColumnItem
