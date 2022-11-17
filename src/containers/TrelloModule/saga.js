@@ -26,7 +26,7 @@ function* postList({ payload }) {
   // }
 
   if (payload?.title === "") {
-    yield put(setWarningCode("LIST_TITLE_EMPTY"))
+    yield put(setWarningCode(`LIST_TITLE_EMPTY_${payload?.id}`))
   } else {
     const responseBack = { type: "success" }
 
@@ -40,29 +40,16 @@ function* postList({ payload }) {
 }
 
 function* deleteList({ payload }) {
-  // try {
-  //   const response = yield call(request)
-  // } catch (error) {
-  //   console.error('deleteList ERROR | ', error)
-  // }
-
   const columns = yield select(selectColumns)
 
   yield put(setSuccessCode("SUCCESS_DELETE_LIST"))
-  yield put(
-    deleteSuccessList(columns?.filter(item => item?.id !== payload?.id))
-  )
+  yield put(deleteSuccessList(columns?.filter(item => item?.id !== payload?.id)))
 }
 
 function* postCard({ payload }) {
-  // try {
-  //   const response = yield call(request)
-  // } catch (error) {
-  //   console.error('postCard ERROR | ', error)
-  // }
-
+  console.log("payload", payload)
   if (payload?.title === "") {
-    yield put(setWarningCode("CARD_TITLE_EMPTY"))
+    yield put(setWarningCode(`CARD_TITLE_EMPTY_${payload.id}`))
   } else {
     const responseBack = { type: "success" }
 
@@ -76,12 +63,6 @@ function* postCard({ payload }) {
 }
 
 function* patchCard({ payload }) {
-  // try {
-  //   const response = yield call(request)
-  // } catch (error) {
-  //   console.error('patchCard ERROR | ', error)
-  // }
-
   if (payload?.title === "") {
     yield put(setWarningCode("CARD_TITLE_EMPTY"))
   } else {
@@ -97,12 +78,6 @@ function* patchCard({ payload }) {
 }
 
 function* deleteCard({ payload }) {
-  // try {
-  //   const response = yield call(request)
-  // } catch (error) {
-  //   console.error('deleteCard ERROR | ', error)
-  // }
-
   const cards = yield select(selectCards)
 
   yield put(setSuccessCode("SUCCESS_DELETE_CARD"))

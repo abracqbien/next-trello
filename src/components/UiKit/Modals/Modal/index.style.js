@@ -27,7 +27,7 @@ export const MainContainer = styled.div`
   left: 0;
   top: 0;
 
-  .popUpContainer {
+  .modal_container {
     box-shadow: 0px 0px 1rem #333;
     background-color: #fff;
     flex-direction: column;
