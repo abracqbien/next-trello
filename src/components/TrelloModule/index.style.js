@@ -145,6 +145,7 @@ export const ModalContainer = styled.div`
 
   .modal_body {
     margin-bottom: 20px;
+    position: relative;
     display: flex;
     .title {
       margin-bottom: 5px;
@@ -154,6 +155,7 @@ export const ModalContainer = styled.div`
     }
 
     .left_container {
+      position: relative;
       flex-grow: 1;
 
       .description_edit_container {
@@ -186,6 +188,7 @@ export const ModalContainer = styled.div`
     .right_container {
       flex-direction: column;
       padding-left: 20px;
+      position: relative;
       min-width: 190px;
       display: flex;
 

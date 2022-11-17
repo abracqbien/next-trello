@@ -77,7 +77,7 @@ const ModalWorkCard = ({
           <div className="left_container">
             <div className="title">Description</div>
             {workCard?.description !== "" && !atWork ? (
-              <div onClick={() => setAtWork(true)}>
+              <div onClick={() => setAtWork(true)} className="full_size pointer">
                 <div className="description">{workCard?.description}</div>
               </div>
             ) : atWork ? (
@@ -113,10 +113,7 @@ const ModalWorkCard = ({
             </div>
             <div onClick={onOpenConfirmDeleteCard} className="follow_container">
               <div className="card_icons">
-                <i
-                  className="fas fa-minus"
-                  style={{ margin: "0 10px 0 2px" }}
-                />
+                <i className="fas fa-minus" style={{ margin: "0 10px 0 2px" }} />
               </div>
               Supprimer
             </div>
