@@ -9,6 +9,9 @@ import AddList from "Components/TrelloModule/components/AddList"
 // Ui kit
 import ConfirmationModal from "Components/UiKit/Modals/ConfirmationModal"
 
+// Utils
+import { useList, useCard } from "Components/TrelloModule/utils"
+
 // Styles
 import { MainContainer } from "Components/TrelloModule/index.style"
 
@@ -28,12 +31,6 @@ const TrelloModule = ({
   columns,
   cards,
 }) => {
-  const [confirmDeleteCard, setConfirmeDeleteCard] = useState(false)
-  const [confirmDeleteList, setConfirmeDeleteList] = useState(false)
-  const [modalWorkCard, setModalWorkCard] = useState(false)
-  const [workColumn, setWorkColumn] = useState({})
-  const [workCard, setWorkCard] = useState({})
-
   useEffect(() => {
     if (warningCode !== "")
       setTimeout(() => {
@@ -52,39 +49,25 @@ const TrelloModule = ({
     }
   }, [successCode])
 
-  // Functions List
-  const onSubmitDeleteList = () => {
-    onDeleteList(workColumn)
-  }
-  const onCleanDeleteList = () => {
-    setConfirmeDeleteList(false)
-    setWorkColumn({})
-  }
-  const onOpenConfirmDeleteList = column => {
-    setWorkColumn(column)
-    setConfirmeDeleteList(true)
-  }
+  const {
+    onOpenConfirmDeleteList,
+    onSubmitDeleteList,
+    onCleanDeleteList,
+    setWorkColumn,
+    confirmDeleteList,
+    workColumn,
+  } = useList(onDeleteList)
 
-  // Functions Card
-  const onSubmitDeleteCard = () => {
-    onDeleteCard(workCard)
-  }
-  const onCleanDeleteCard = () => {
-    setConfirmeDeleteCard(false)
-    setModalWorkCard(false)
-    setWorkColumn({})
-    setWorkCard({})
-  }
-  const onOpenWorkCard = card => {
-    const column = columns?.filter(column => column?.id == card?.columnId)?.[0]
-
-    setWorkColumn(column)
-    setWorkCard(card)
-    setModalWorkCard(true)
-  }
-  const onOpenConfirmDeleteCard = () => {
-    setConfirmeDeleteCard(true)
-  }
+  const {
+    onOpenConfirmDeleteCard,
+    onSubmitDeleteCard,
+    onCleanDeleteCard,
+    onOpenWorkCard,
+    setWorkCard,
+    confirmDeleteCard,
+    modalWorkCard,
+    workCard,
+  } = useCard(onDeleteCard, setWorkColumn, cards)
 
   return (
     <MainContainer id="trello_container" gridLength={columns?.length}>
